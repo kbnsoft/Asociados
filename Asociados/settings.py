@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'AsociadosApp',
+    'AsociadosCfg',
 ]
 
 MIDDLEWARE = [
@@ -77,7 +78,7 @@ WSGI_APPLICATION = 'Asociados.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'asociados',
+        'NAME': 'AsociadosApp',
         'USER': 'postgres',
         'PASSWORD': 'Carlitos2174',
         'HOST': '127.0.0.1',
