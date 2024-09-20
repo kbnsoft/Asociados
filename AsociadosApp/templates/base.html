@@ -143,10 +143,13 @@
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-            <div class="input-group">
-              <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-              <input type="text" class="form-control" placeholder="Type here...">
-            </div>
+            <form id="buscar_afiliado" method="GET" action="{% url 'Nomina' %}">
+              <div class="input-group">
+                <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+                <input type="submit" hidden />
+                <input type="text" name="q" class="form-control" placeholder="Buscar en n&oacute;mina..." {% if query %} value='{{ query }}' {% endif %} >                  
+              </div>
+          </form>
           </div>
           <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">

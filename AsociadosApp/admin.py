@@ -9,8 +9,8 @@ class EmpresaAdmin(admin.ModelAdmin):
    search_fields = ['codigo','razon_social', 'cuit']
 
 class AfiliadoAdmin(admin.ModelAdmin):
-   list_display = ['apellido','nombre', 'cuil', 'importe', 'periodo', 'facturado']
-   search_fields = ['apellido','nombre', 'cuil']
+   list_display = ['nombre', 'apellido', 'cuil', 'importe', 'periodo', 'facturado']
+   search_fields = ['nombre', 'apellido', 'cuil']
    list_filter = ['empresa']
    readonly_fields = ('created','updated')
 
