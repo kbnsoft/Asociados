@@ -44,7 +44,7 @@ def nomina(request):
                                            "ru3":ru3,
                                            "periodo_carga": PeriodoCarga()})
 
-def CreateAfiliado(request):
+def AfiliadoAlta(request):
     if PeriodoCarga() == False:
         return redirect("Nomina")  # Redirect to the Afiliados list por que no está abierto el periodo de carga
     else:

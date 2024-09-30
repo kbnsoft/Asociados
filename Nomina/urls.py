@@ -3,7 +3,7 @@ from Nomina import views
 
 urlpatterns = [
     path('', views.nomina, name="Nomina"),
-    path('create-afiliado', views.CreateAfiliado, name="CreateAfiliado"),
+    path('afiliado-alta', views.AfiliadoAlta, name="AfiliadoAlta"),
     path('read-afiliado', views.ReadAfiliado, name="ReadAfiliado"),
     path('update-afiliado', views.UpdateAfiliado, name="UpadateAfiliado"),
     path('delete-afiliado', views.DeleteAfiliado, name="DeleteAfiliado"),
