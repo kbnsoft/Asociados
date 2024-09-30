@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -37,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'AsociadosApp',
+    'Nomina',
     'AsociadosCfg',
 ]
 
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'Asociados.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'Asociados/templates')],  # directorio global de plantillas
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,7 +79,7 @@ WSGI_APPLICATION = 'Asociados.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'AsociadosApp',
+        'NAME': 'Asociados',
         'USER': 'postgres',
         'PASSWORD': 'Carlitos2174',
         'HOST': '127.0.0.1',
@@ -121,7 +122,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+# URL para acceder a los archivos estáticos en las plantillas
+STATIC_URL = 'Asociados/static/'
+
+# Directorio en el que estarán almacenados los archivos estáticos dentro de tu proyecto
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'Asociados/static'),
+]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
