@@ -1,20 +1,20 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Afiliado, Empresa
 from django.core.paginator import Paginator
 from django.db.models import Q
 from .forms import AfiliadoForm
-from .utils import PeriodoCarga, IdEmpresaActiva
+from Asociados.utils import IdEmpresaActiva, PeriodoCarga
 
 # Create your views here.
 def nomina(request):    
     # Obtener la lista de afiliados
-    afiliados = Afiliado.objects.filter(empresa__id = IdEmpresaActiva()).order_by("nombre")
+    afiliados = Afiliado.objects.filter(empresa__id = IdEmpresaActiva()).order_by("apellido", "nombre")
     
     # Filtrar la lista de afiliados (búsquedas)
-    query = request.GET.get('q')  # Obtener el parámetro 'q' de la búsqueda
-    if query:
-        afiliados = afiliados.filter(Q(nombre__icontains=query) | Q(apellido__icontains=query)).order_by("nombre")
-    
+    q = request.GET.get('q')  # Obtener el parámetro 'q' de la búsqueda
+    if q:
+        afiliados = afiliados.filter(Q(nombre__icontains=q) | Q(apellido__icontains=q)).order_by("nombre")
+
     # Configurar el paginador
     np = 20 # Definir el nro de afiliados por página
     paginator = Paginator(afiliados, np)  # Show "np" afiliados per page.
@@ -26,17 +26,8 @@ def nomina(request):
     rd3 = page_obj.number - 3
     ru3 = page_obj.number + 3
 
-    # baja de afiliado
-    if request.method == "POST":
-        IdAfiliado = request.POST.get('IdAfiliado')
-        op = request.POST.get('Operacion')
-        if op == 'Baja':
-            bA = Afiliado.objects.get(id=IdAfiliado)
-            bA.estado = 'Baja'
-            bA.save()
-
     return render(request, "nomina.html", {"page_obj": page_obj, 
-                                           "query":query, 
+                                           "query":q, 
                                            "total_nomina": afiliados.count, 
                                            "ru2":ru2,
                                            "rd2":rd2,
@@ -52,12 +43,12 @@ def AfiliadoAlta(request):
             form = AfiliadoForm(request.POST)        
             if form.is_valid():            
                 # Crear el objeto pero no guardarlo aún en la base de datos
-                Afiliado = form.save(commit=False)
+                afi = form.save(commit=False)
                 # Establecer un valor predeterminado para la Empresa
-                Afiliado.empresa = Empresa.objects.get(id=IdEmpresaActiva())
-                Afiliado.estado = "Alta"
-                Afiliado.save()  # Save the Afiliado to the database
-                return redirect("Nomina")  # Redirect to the Afiliados list
+                afi.empresa = Empresa.objects.get(id=IdEmpresaActiva())
+                afi.estado = "Alta"
+                afi.save()  # Save the Afiliado to the database
+                return redirect("Nomina") 
             else:
                 # Handle the form errors
                 print(form.errors)
@@ -66,11 +57,32 @@ def AfiliadoAlta(request):
         
         return render(request, 'afiliado_c.html', {'form': form})
 
-def ReadAfiliado(request):
-    return render(request, "afiliado_r.html")
+def AfiliadoModif(request, afiliado_id):
+    afi = get_object_or_404(Afiliado, id=afiliado_id)
+    if request.method == 'POST':
+        form = AfiliadoForm(request.POST, instance=afi)
+        if form.is_valid():
+            afi = form.save(commit=False)
+            if afi.estado != "Alta":
+                #si es un afiliado que se da de alta, el estado queda en "Alta"
+                afi.estado = "Modif." 
+            afi.save()
+            return redirect("Nomina")
+    else:
+        form = AfiliadoForm(instance=afi)
+    return render(request, 'afiliado_u.html', {'form': form})
+
+def AfiliadoBaja(request, afiliado_id):
+    afi = get_object_or_404(Afiliado, id=afiliado_id)
+    afi.estado = "Baja" 
+    afi.save()
+    return redirect("Nomina")
 
 def UpdateAfiliado(request):
     return render(request, "afiliado_u.html")
+
+def ReadAfiliado(request):
+    return render(request, "afiliado_r.html")
 
 def DeleteAfiliado(request):
     return render(request, "afiliado_d.html")
@@ -81,20 +93,6 @@ def DeleteAfiliado(request):
 # VER !!!
 def home(request):
     return render(request, "home.html")
-
-def dashboards(request):
-    afiliados = Afiliado.objects.filter(empresa__id = 1)
-    
-    if date.today().day > 10:
-        prox_cierre = "10/" + str(date.today().month + 1) + "/" + str(date.today().year)
-    else:
-        prox_cierre = "10/" + str(date.today().month) + "/" + str(date.today().year)
-
-    return render(request, "dashboards.html", {"afiliados_activos":afiliados.filter(estado='Activo').count(),
-                                               "afiliados_altas":afiliados.filter(estado='Alta').count(),
-                                               "afiliados_bajas":afiliados.filter(estado='Baja').count(),
-                                               "afiliados_modif":afiliados.filter(estado='Modif.').count(),
-                                               "prox_cierre":prox_cierre})
 
 
 def facturacion(request):

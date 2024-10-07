@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Asociados APROSS - N&oacute;mina{% endblock %}
+{% block page-breadcrumb %}N&oacute;mina{% endblock %}
+{% block page-title %}N&oacute;mina de personal{% endblock %}
+
+{% block content %}
+
+<!-- Afiliado Create: afiliado_c.html -->
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-header pb-0">
+                <h6>Modificar personal en n&oacute;mina</h6>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                  <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form.nombre.label_tag }}
+                            {{ form.nombre }}
+                            {{ form.nombre.errors }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form.apellido.label_tag }}
+                            {{ form.apellido }}
+                            {{ form.apellido.errors }}
+                        </div>
+                    </div>
+                  </div>                                  
+                  <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {{ form.nro_afiliado.label_tag }}
+                            {{ form.nro_afiliado }}
+                            {{ form.nro_afiliado.errors }}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {{ form.nacimiento.label_tag }}
+                            {{ form.nacimiento }}
+                            {{ form.nacimiento.errors }}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {{ form.sexo.label_tag }}
+                            {{ form.sexo }}
+                            {{ form.sexo.errors }}
+                        </div>                                  
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form.cuil.label_tag }}
+                            {{ form.cuil }}
+                            {{ form.cuil.errors }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">                 
+                        <div class="form-group">
+                            {{ form.dni.label_tag }}
+                            {{ form.dni }}
+                            {{ form.dni.errors }}
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            {{ form.email.label_tag }}
+                            {{ form.email }}
+                            {{ form.email.errors }}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {{ form.telefono.label_tag }}
+                            {{ form.telefono }}
+                            {{ form.telefono.errors }}
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form.calle.label_tag }}
+                            {{ form.calle }}
+                            {{ form.calle.errors }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form.nro.label_tag }}
+                            {{ form.nro }}
+                            {{ form.nro.errors }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form.piso.label_tag }}
+                            {{ form.piso }}
+                            {{ form.piso.errors }}
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{ form.localidad.label_tag }}
+                            {{ form.localidad }}
+                            {{ form.localidad.errors }}
+                        </div>
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <a class="btn btn-sm bg-gradient-default btn-lg mt-4 mb-0" href="{% url 'Nomina' %}">Cancelar</a>
+                    <button type="submit" class="btn btn-sm bg-gradient-info btn-lg mt-4 mb-0">Modificar</button>
+                    <a class="btn btn-sm bg-gradient-danger btn-lg mt-4 mb-0" href="{% url 'AfiliadoBaja' form.instance.id %}">Baja</a>
+                  </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

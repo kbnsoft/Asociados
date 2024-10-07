@@ -5,7 +5,6 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/apple-icon.png' %}">
   <link rel="icon" type="image/png" href="{% static 'assets/img/cropped-avatar-180x180.png' %}">
   <title>{% block title %}{% endblock %}</title>
   <!--     Fonts and icons     -->
@@ -34,7 +33,7 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link {% if request.path == '/AsociadosApp/dashboards' %} active{% endif %}" href="{% url 'Dashboards' %}">
+          <a class="nav-link {% if request.path == '/Dashboards' %} active{% endif %}" href="{% url 'Dashboards' %}">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
             </div>
@@ -135,7 +134,7 @@
                 <input type="submit" hidden />
                 <input type="text" name="q" class="form-control" placeholder="Buscar en n&oacute;mina..." {% if query %} value='{{ query }}' {% endif %} >                  
               </div>
-          </form>
+            </form>
           </div>
           <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">

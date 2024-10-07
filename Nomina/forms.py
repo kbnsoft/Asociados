@@ -4,7 +4,7 @@ from .models import Afiliado
 class AfiliadoForm(forms.ModelForm):
     class Meta:
         model = Afiliado
-        # fields = "__all__"
+        #fields = "__all__"
         fields = ['nombre', 'apellido', 'cuil', 'dni', 'sexo', 
                   'nro_afiliado', 'email', 'telefono', 'nacimiento', 
                   'calle', 'nro', 'piso', 'localidad']

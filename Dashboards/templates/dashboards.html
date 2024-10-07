@@ -3,7 +3,7 @@
 {% block title %}Asociados APROSS - Dashboards{% endblock %}
 {% block page-breadcrumb %}Dashboards{% endblock %}
 {% block page-title %}Resumen de operaciones{% endblock %}
-
+{% load l10n %}
 {% block content %}
 <div class="row">
   <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
@@ -12,13 +12,12 @@
         <div class="row">
           <div class="col-8">
             <div class="numbers">
-              <p class="text-sm mb-0 text-uppercase font-weight-bold">&Uacute;ltima liquidaci&oacute;n</p>
+              <p class="text-sm mb-0 text-uppercase font-weight-bold">Liquidaci&oacute;n</p>
               <h5 class="font-weight-bolder">
-                ${{h.importe}}
+                ${{ importe_total|localize }}
               </h5>
-              <p class="mb-0">
-                <span class="text-success text-sm font-weight-bolder">{{h.facturado}}</span>
-                since yesterday
+              <p class="mb-0">A la fecha:
+                <span class="text-success text-sm font-weight-bolder">{{fecha_liquidacion}}</span>
               </p>
             </div>
           </div>
@@ -61,10 +60,10 @@
         <div class="row">
           <div class="col-8">
             <div class="numbers">
-              <p class="text-sm mb-0 text-uppercase font-weight-bold">Movimientos <br /> a procesar</p>
-              <p class="mb-0">altas <span class="text-success text-sm font-weight-bolder">+{{afiliados_altas}}</span><br />
-                bajas <span class="text-danger text-sm font-weight-bolder">-{{afiliados_bajas}}</span><br />
-                modif. <span class="text-info text-sm font-weight-bolder">{{afiliados_modif}}</span></p>              
+              <p class="text-sm mb-0 text-uppercase font-weight-bold">Movimientos</p>
+              <p class="mb-0">altas <span class="text-success text-sm font-weight-bolder">&#9650; {{afiliados_altas}}</span><br />
+                bajas <span class="text-danger text-sm font-weight-bolder">&#9660; {{afiliados_bajas}}</span><br />
+                modif. <span class="text-info text-sm font-weight-bolder">&#9664; {{afiliados_modif}}</span></p>              
             </div>
           </div>
           <div class="col-4 text-end">
@@ -82,18 +81,17 @@
         <div class="row">
           <div class="col-8">
             <div class="numbers">
-              <p class="text-sm mb-0 text-uppercase font-weight-bold">Sales</p>
-              <h5 class="font-weight-bolder">
-                $103,430
-              </h5>
+              <p class="text-sm mb-0 text-uppercase font-weight-bold">Edades</p>
               <p class="mb-0">
-                <span class="text-success text-sm font-weight-bolder">+5%</span> than last month
+                <i>x <sub>avg.</sub></i> <span class="text-info text-sm font-weight-bolder">{{ edad_avg }}</span><br />
+                <i>x <sub>min.</sub></i> <span class="text-info text-sm font-weight-bolder">{{ edad_min }}</span><br />
+                <i>x <sub>max.</sub></i> <span class="text-info text-sm font-weight-bolder">{{ edad_max }}</span>
               </p>
             </div>
           </div>
           <div class="col-4 text-end">
             <div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
-              <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
+              <i class="ni ni-satisfied text-lg opacity-10" aria-hidden="true"></i>
             </div>
           </div>
         </div>

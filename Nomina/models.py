@@ -1,7 +1,7 @@
 from django.db import models
 from datetime import date
+from django.db import connection
 
-# Create your models here.
 class Afiliado(models.Model):
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
