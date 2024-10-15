@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Asociados APROSS - Liquidaci&oacute;n{% endblock %}
+{% block page-breadcrumb %}Liquidaci&oacute;n{% endblock %}
+{% block page-title %}Liquidaciones{% endblock %}
+
+{% block content %}
+
+<!-- Afiliado Create: afiliado_c.html -->
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-header pb-0">
+                <h6>Liquidaci&oacute;n</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            Liquidaci: {{ cabecera.comprobante }}
+                            letra: {{ cabecera.letra }}
+                            sucursal: {{ cabecera.sucursal }}
+                            numero: {{ cabecera.numero }}
+                            empresa: {{ cabecera.empresa }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>                                  
+                <div class="text-center">
+                    <a class="btn btn-sm bg-gradient-default btn-lg mt-4 mb-0" href="{% url 'LiquidacionList' %}">Cancelar</a>
+                    <button type="submit" class="btn btn-sm bg-gradient-info btn-lg mt-4 mb-0">Modificar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

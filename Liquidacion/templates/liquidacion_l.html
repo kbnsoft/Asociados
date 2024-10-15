@@ -1,18 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Asociados APROSS - N&oacute;mina{% endblock %}
-{% block page-breadcrumb %}N&oacute;mina{% endblock %}
-{% block page-title %}N&oacute;mina de personal{% endblock %}
+{% block title %}Asociados APROSS - Liquidaci&oacute;n{% endblock %}
+{% block page-breadcrumb %}Liquidaci&oacute;n{% endblock %}
+{% block page-title %}Liquidaciones{% endblock %}
 
 {% block content %}
   <div class="row">
     <div class="col-12">
       <div class="card mb-4">
         <div class="card-header pb-0">
-          <div class="d-flex justify-content-end">            
-            {% if periodo_carga %}
-              <a class="btn bg-gradient-success btn-sm btn-tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="Alta de personal en n&oacute;mina" data-container="body" data-animation="true" href="{% url 'AfiliadoAlta' %}"> &nbsp; Alta &nbsp; </a>
-            {% endif %}
+          <div class="d-flex">            
+            <h6>Liquidaciones</h6>  
           </div>
         </div>
         <div class="card-body px-0 pt-0 pb-2">
@@ -20,53 +18,40 @@
             <table class="table align-items-center mb-0">
               <thead>
                 <tr>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Titular / cuil</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">e-mail / tel&eacute;fono</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Edad</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Importe</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Per&iacute;odo / Comprobante</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Vencimiento</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-1">Nomina</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total</th>
                 </tr>
               </thead>
               <tbody>                  
-                {% for afiliado in page_obj %}
+                {% for liquidacion in page_obj %}
                 <tr>
                   <td>
                     <div class="d-flex px-2 py-1">
-                      
-                      <div>
-                        <a href="{% url 'AfiliadoModif' afiliado.id %}">
-                          <img src="{% static 'assets/img/default-profile-selfie.jpg' %}" class="avatar avatar-sm me-3" alt="user1">
+                        <a href="{% url 'LiquidacionRead' liquidacion.id %}">
+                            <div class="icon icon-shape icon-sm me-3 bg-gradient-success shadow text-center">
+                                <i class="ni ni-tag text-white opacity-10"></i>
+                            </div>
                         </a>
-                      </div>
-                      <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm"><a href="{% url 'AfiliadoModif' afiliado.id %}">{{afiliado.nombre}} {{afiliado.apellido}}</a></h6>
-                        <p class="text-xs text-secondary mb-0">{{afiliado.cuil}}</p>
-                      </div>
+                        <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm"><a href="{% url 'LiquidacionRead' liquidacion.id %}">{{liquidacion.periodo}}</a></h6>
+                            <p class="text-xs text-secondary mb-0"><a href="{% url 'LiquidacionRead' liquidacion.id %}">{{liquidacion.comprobante}}-{{liquidacion.letra}}-{{liquidacion.sucursal}}-{{liquidacion.numero}}</a></p>
+                        </div>
                     </div>
                   </td>
                   <td>
-                    <p class="text-xs font-weight-bold mb-0">{{afiliado.email}}</p>
-                    <p class="text-xs text-secondary mb-0">{{afiliado.telefono}}</p>
+                    <p class="text-xs font-weight-bold mb-0">{{liquidacion.fecha}}</p>
                   </td>
-                  <td class="align-middle text-center text-sm">
-                    {% if afiliado.estado == "Activo" %}
-                    <span class="badge badge-sm bg-gradient-secondary">
-                    {% elif afiliado.estado == "Alta" %}
-                    <span class="badge badge-sm bg-gradient-success">
-                    {% elif afiliado.estado == "Baja" %}
-                    <span class="badge badge-sm bg-gradient-danger">
-                    {% elif afiliado.estado == "Modif." %}
-                    <span class="badge badge-sm bg-gradient-info">
-                    {% else %}
-                    <span class="badge badge-sm bg-gradient-secondary">
-                    {% endif %}
-                    {{afiliado.estado}}</span>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{liquidacion.vencimiento}}</p>
                   </td>
-                  <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{afiliado.edad}}</span>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{liquidacion.cantidad_afiliados}}</p>
                   </td>
-                  <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{afiliado.importe}}</span>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{liquidacion.total_liquidado}}</p>
                   </td>
                 </tr>
                 {% endfor %}

@@ -2,12 +2,10 @@ from django.urls import path
 from Nomina import views
 
 urlpatterns = [
-    path('', views.nomina, name="Nomina"),
-    path('afiliado-alta', views.AfiliadoAlta, name="AfiliadoAlta"),
-    path('afiliado-modif/<int:afiliado_id>/', views.AfiliadoModif, name="AfiliadoModif"),
-    path('afiliado-baja/<int:afiliado_id>/', views.AfiliadoBaja, name="AfiliadoBaja"),
-    path('read-afiliado', views.ReadAfiliado, name="ReadAfiliado"),
-    path('delete-afiliado', views.DeleteAfiliado, name="DeleteAfiliado"),
+    path('afiliado-list', views.afiliado_list, name="AfiliadoList"),
+    path('afiliado-create', views.afiliado_create, name="AfiliadoCreate"),
+    path('afiliado-update/<int:afiliado_id>/', views.afiliado_update, name="AfiliadoUpdate"),
+    path('afiliado-baja/<int:afiliado_id>/', views.afiliado_baja, name="AfiliadoBaja"),
     path('home', views.home, name="Home"),
     path('facturacion', views.facturacion, name="Facturacion"),
     path('contacto', views.contacto, name="Contacto"),

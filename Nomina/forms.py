@@ -13,11 +13,15 @@ class AfiliadoForm(forms.ModelForm):
             'apellido': forms.TextInput(attrs={'class': 'form-control form-control-sm'}),
             'cuil': forms.NumberInput(attrs={'class': 'form-control form-control-sm'}),
             'dni': forms.NumberInput(attrs={'class': 'form-control form-control-sm'}),
-            'sexo': forms.Select(choices=[('M', 'M'), ('F', 'F'), ('X', 'X'), ], attrs={'class': 'form-control form-control-sm'}),
+            'sexo': forms.Select(choices=[('M', 'M'), ('F', 'F'), ('X', 'X'), ], 
+                                 attrs={'class': 'form-control form-control-sm'}
+                                 ),
             'nro_afiliado': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'disabled': 'disabled'}),
             'email': forms.EmailInput(attrs={'class': 'form-control form-control-sm'}),
             'telefono': forms.TextInput(attrs={'class': 'form-control form-control-sm'}),
-            'nacimiento': forms.DateInput(attrs={'class': 'form-control form-control-sm', 'type': 'date'}),
+            'nacimiento': forms.DateInput(attrs={'class': 'form-control form-control-sm', 'type': 'date'},
+                                          format='%Y-%m-%d' #Especifica el formato correcto para que el input date lo reconozca
+                                          ),
             'calle': forms.TextInput(attrs={'class': 'form-control form-control-sm'}),
             'nro': forms.TextInput(attrs={'class': 'form-control form-control-sm'}),
             'piso': forms.TextInput(attrs={'class': 'form-control form-control-sm'}),

@@ -1,6 +1,5 @@
 from django.db import models
 from datetime import date
-from django.db import connection
 
 class Afiliado(models.Model):
     nombre = models.CharField(max_length=50)
@@ -17,13 +16,14 @@ class Afiliado(models.Model):
     piso = models.CharField(max_length=10, blank=True, null=True)
     localidad = models.ForeignKey('AsociadosCfg.Localidad', on_delete=models.CASCADE, blank=True, null=True)
     estado = models.CharField(max_length=10)
-    importe = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    periodo = models.IntegerField(blank=True, null=True) # el importe corresponde a este período facturado (nro del 1 al 12)
-    facturado = models.DateField(blank=True, null=True) # fecha en que se procesó el cálculo y facturación
     empresa = models.ForeignKey('Empresa', on_delete=models.CASCADE, blank=True, null=True)
     created=models.DateTimeField(auto_now_add=True)
     updated=models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        sc = str(self.nro_afiliado) + ' - ' + self.apellido + ' ' + self.nombre
+        return sc
+    
     def edad(self):
         hoy = date.today()
         e = hoy.year - self.nacimiento.year - ((hoy.month, hoy.day) < (self.nacimiento.month, self.nacimiento.day))

@@ -6,14 +6,14 @@ from .forms import AfiliadoForm
 from Asociados.utils import IdEmpresaActiva, PeriodoCarga
 
 # Create your views here.
-def nomina(request):    
+def afiliado_list(request):    
     # Obtener la lista de afiliados
     afiliados = Afiliado.objects.filter(empresa__id = IdEmpresaActiva()).order_by("apellido", "nombre")
     
     # Filtrar la lista de afiliados (búsquedas)
     q = request.GET.get('q')  # Obtener el parámetro 'q' de la búsqueda
     if q:
-        afiliados = afiliados.filter(Q(nombre__icontains=q) | Q(apellido__icontains=q)).order_by("nombre")
+        afiliados = afiliados.filter(Q(nombre__icontains=q) | Q(apellido__icontains=q)).order_by("apellido","nombre")
 
     # Configurar el paginador
     np = 20 # Definir el nro de afiliados por página
@@ -26,7 +26,7 @@ def nomina(request):
     rd3 = page_obj.number - 3
     ru3 = page_obj.number + 3
 
-    return render(request, "nomina.html", {"page_obj": page_obj, 
+    return render(request, "afiliado_l.html", {"page_obj": page_obj, 
                                            "query":q, 
                                            "total_nomina": afiliados.count, 
                                            "ru2":ru2,
@@ -35,9 +35,9 @@ def nomina(request):
                                            "ru3":ru3,
                                            "periodo_carga": PeriodoCarga()})
 
-def AfiliadoAlta(request):
+def afiliado_create(request):
     if PeriodoCarga() == False:
-        return redirect("Nomina")  # Redirect to the Afiliados list por que no está abierto el periodo de carga
+        return redirect("AfiliadoList")  # Redirect to the Afiliados list por que no está abierto el periodo de carga
     else:
         if request.method == "POST":
             form = AfiliadoForm(request.POST)        
@@ -48,7 +48,7 @@ def AfiliadoAlta(request):
                 afi.empresa = Empresa.objects.get(id=IdEmpresaActiva())
                 afi.estado = "Alta"
                 afi.save()  # Save the Afiliado to the database
-                return redirect("Nomina") 
+                return redirect("AfiliadoList") 
             else:
                 # Handle the form errors
                 print(form.errors)
@@ -57,7 +57,7 @@ def AfiliadoAlta(request):
         
         return render(request, 'afiliado_c.html', {'form': form})
 
-def AfiliadoModif(request, afiliado_id):
+def afiliado_update(request, afiliado_id):
     afi = get_object_or_404(Afiliado, id=afiliado_id)
     if request.method == 'POST':
         form = AfiliadoForm(request.POST, instance=afi)
@@ -67,25 +67,30 @@ def AfiliadoModif(request, afiliado_id):
                 #si es un afiliado que se da de alta, el estado queda en "Alta"
                 afi.estado = "Modif." 
             afi.save()
-            return redirect("Nomina")
+            return redirect("AfiliadoList")
     else:
         form = AfiliadoForm(instance=afi)
-    return render(request, 'afiliado_u.html', {'form': form})
+        if PeriodoCarga() == False:
+            for field in form.fields.values():
+                field.widget.attrs['disabled'] = 'disabled'
+        
+    return render(request, 'afiliado_u.html', {'form': form, 'PeriodoCarga':PeriodoCarga()})
 
-def AfiliadoBaja(request, afiliado_id):
+
+def afiliado_read(request, afiliado_id):
     afi = get_object_or_404(Afiliado, id=afiliado_id)
-    afi.estado = "Baja" 
-    afi.save()
-    return redirect("Nomina")
+    form = AfiliadoForm(instance=afi)
+    return render(request, 'afiliado_r.html', {'form': form})
 
-def UpdateAfiliado(request):
-    return render(request, "afiliado_u.html")
+def afiliado_baja(request, afiliado_id):
+    if PeriodoCarga() == False:
+        return redirect("AfiliadoList")  # Redirect to the Afiliados list por que no está abierto el periodo de carga
+    else:
+        afi = get_object_or_404(Afiliado, id=afiliado_id)
+        afi.estado = "Baja" 
+        afi.save()
+        return redirect("AfiliadoList")
 
-def ReadAfiliado(request):
-    return render(request, "afiliado_r.html")
-
-def DeleteAfiliado(request):
-    return render(request, "afiliado_d.html")
 
 
 

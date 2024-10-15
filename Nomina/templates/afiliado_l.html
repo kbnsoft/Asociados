@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Asociados APROSS - N&oacute;mina{% endblock %}
+{% block page-breadcrumb %}N&oacute;mina{% endblock %}
+{% block page-title %}N&oacute;mina de personal{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-4">
+        <div class="card-header pb-0">
+          <div class="d-flex justify-content-end">            
+            {% if periodo_carga %}
+              <a class="btn bg-gradient-success btn-sm btn-tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="Alta de personal en n&oacute;mina" data-container="body" data-animation="true" href="{% url 'AfiliadoCreate' %}"> &nbsp; Alta &nbsp; </a>
+            {% endif %}
+          </div>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Titular / cuil</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">e-mail / tel&eacute;fono</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Edad</th>
+                </tr>
+              </thead>
+              <tbody>                  
+                {% for afiliado in page_obj %}
+                <tr>
+                  <td>
+                    <div class="d-flex px-2 py-1">
+                      
+                      <div>
+                        <a href="{% url 'AfiliadoUpdate' afiliado.id %}">
+                          <img src="{% static 'assets/img/default-profile-selfie.jpg' %}" class="avatar avatar-sm me-3" alt="user1">
+                        </a>
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm"><a href="{% url 'AfiliadoUpdate' afiliado.id %}">{{afiliado.apellido}} {{afiliado.nombre}}</a></h6>
+                        <p class="text-xs text-secondary mb-0">{{afiliado.cuil}}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{afiliado.email}}</p>
+                    <p class="text-xs text-secondary mb-0">{{afiliado.telefono}}</p>
+                  </td>
+                  <td class="align-middle text-center text-sm">
+                    {% if afiliado.estado == "Activo" %}
+                    <span class="badge badge-sm bg-gradient-secondary">
+                    {% elif afiliado.estado == "Alta" %}
+                    <span class="badge badge-sm bg-gradient-success">
+                    {% elif afiliado.estado == "Baja" %}
+                    <span class="badge badge-sm bg-gradient-danger">
+                    {% elif afiliado.estado == "Modif." %}
+                    <span class="badge badge-sm bg-gradient-info">
+                    {% else %}
+                    <span class="badge badge-sm bg-gradient-secondary">
+                    {% endif %}
+                    {{afiliado.estado}}</span>
+                  </td>
+                  <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{afiliado.edad}}</span>
+                  </td>
+                </tr>
+                {% endfor %}
+                
+              </tbody>
+            </table>
+          </div>
+          <!-- INICIO PAGINACION -->
+          {% if page_obj.has_other_pages %}
+          <div class="ct-example" style="position: relative;border: 2px solid #f5f7ff !important;border-bottom: none !important;padding: 1rem 1rem 2rem 1rem;margin-bottom: -1.25rem;">
+            <nav aria-label="...">
+            <div class="pagination-container justify-content-center">
+            <ul class="pagination pagination-success">
+              {% if page_obj.number > 1 %}
+              <li class="page-item">
+                <a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page=1" aria-label="Primera">
+                  <span aria-hidden="true"><i class="fa fa-angle-double-left" aria-hidden="true"></i></span>
+                </a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page={{ page_obj.previous_page_number }}" aria-label="Anterior">
+                  <span aria-hidden="true"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+                </a>
+              </li>
+              {% endif %}
+
+              {# Mostrar las páginas #}
+              {% for i in page_obj.paginator.page_range %}
+                  {% if i == page_obj.number %}
+                  <li class="page-item active">
+                    <a class="page-link" href="javascript:;" style="color: #fff;">{{ i }} <span class="sr-only">(current)</span></a>
+                  </li>
+                  {% elif i == 1 or i == page_obj.paginator.num_pages or i >= rd2 and i <= ru2 %}
+                  <li class="page-item">
+                    <a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page={{ i }}">{{ i }}</a> {# Otras páginas #}
+                  </li>
+                  {% elif i == rd3 or i == ru3 %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="javascript:;">...</a> {# Abreviación #}
+                  </li>
+                  {% endif %}
+              {% endfor %}
+
+              {% if page_obj.has_next %}
+                <li class="page-item">
+                  <a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page={{ page_obj.next_page_number }}" aria-label="Siguiente">
+                    <span aria-hidden="true"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                  </a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page={{ page_obj.paginator.num_pages }}" aria-label="Última">
+                    <span aria-hidden="true"><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
+                  </a>
+                </li>
+              {% endif %}
+            </ul>
+            </div>
+            </nav>
+          </div>
+          {% endif %}
+          <!-- FIN PAGINACION -->
+        </div>      
+      </div>
+    </div>
+  </div>
+  {% endblock %}

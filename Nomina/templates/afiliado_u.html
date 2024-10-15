@@ -11,7 +11,7 @@
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header pb-0">
-                <h6>Modificar personal en n&oacute;mina</h6>
+                <h6>Afiliado</h6>
             </div>
             <div class="card-body">
                 <form method="post">
@@ -121,9 +121,11 @@
                     </div>
                   </div>
                   <div class="text-center">
-                    <a class="btn btn-sm bg-gradient-default btn-lg mt-4 mb-0" href="{% url 'Nomina' %}">Cancelar</a>
+                    <a class="btn btn-sm bg-gradient-default btn-lg mt-4 mb-0" href="{% url 'AfiliadoList' %}">Cancelar</a>
+                    {% if PeriodoCarga == True %}
                     <button type="submit" class="btn btn-sm bg-gradient-info btn-lg mt-4 mb-0">Modificar</button>
                     <a class="btn btn-sm bg-gradient-danger btn-lg mt-4 mb-0" href="{% url 'AfiliadoBaja' form.instance.id %}">Baja</a>
+                    {% endif %}
                   </div>
                 </form>
             </div>

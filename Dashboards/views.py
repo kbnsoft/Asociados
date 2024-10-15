@@ -22,8 +22,10 @@ def Dashboards(request):
     else:
         prox = "10/" + str(date.today().month + 1) + "/" + str(date.today().year)
 
-    return render(request, "dashboards.html", {"importe_total":(afis.aggregate(Sum('importe'))['importe__sum'] or 0), 
-                                               "fecha_liquidacion":"01/" + str(date.today().month) + "/" + str(date.today().year),
+    #ult_liq = (afis.aggregate(Sum('importe'))['importe__sum'] or 0)
+    ult_liq = 1205487.25
+    return render(request, "dashboards.html", {"importe_total":ult_liq, 
+                                               "periodo_liquidado":str(date.today().month - 1) + "/" + str(date.today().year),
                                                "afiliados_activos":afis.filter(estado='Activo').count(),
                                                "afiliados_altas":afis.filter(estado='Alta').count(),
                                                "afiliados_bajas":afis.filter(estado='Baja').count(),
