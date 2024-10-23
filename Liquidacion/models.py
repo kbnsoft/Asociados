@@ -10,8 +10,10 @@ class LiquidacionCabecera(models.Model):
     fecha = models.DateField()
     tipo_deudor = models.CharField(max_length=6)
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, blank=True, null=True)
-    condicion = models.CharField(max_length=6)
+    condicion = models.CharField(max_length=6) #condición de pago
     moneda = models.CharField(max_length=5)
+    estado = models.CharField(max_length=1)
+    gravada = models.CharField(max_length=1)
     periodo = models.CharField(max_length=10)
     vencimiento = models.DateField()
     cantidad_afiliados = models.IntegerField()
@@ -33,3 +35,10 @@ class LiquidacionDetalle(models.Model):
     created=models.DateTimeField(auto_now_add=True)
     updated=models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        sc = str(self.liquidacion.empresa.codigo) + ' - ' + self.secuencia + ' - ' + str(self.concepto_descripcion)
+        return sc
+
+    def subtotal(self):
+        st = self.cantidad * self.precio_unitario
+        return st

@@ -15,24 +15,93 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <div class="form-group">
-                            Liquidaci: {{ cabecera.comprobante }}
-                            letra: {{ cabecera.letra }}
-                            sucursal: {{ cabecera.sucursal }}
-                            numero: {{ cabecera.numero }}
-                            empresa: {{ cabecera.empresa }}
+                            <label for="id_periodo">Periodo:</label>
+                            <input type="text" name="periodo" value="{{ cabecera.periodo }}" class="form-control form-control-sm" disabled="disabled" id="id_periodo">
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <div class="form-group">
-                            &nbsp;
+                            <label for="id_comprobante">Comprobante:</label>
+                            <input type="text" name="comprobante" value="{{cabecera.comprobante}}-{{cabecera.letra}}-{{cabecera.sucursal}}-{{cabecera.numero}}" class="form-control form-control-sm" disabled="disabled" id="id_comprobante">
                         </div>
                     </div>
-                </div>                                  
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="id_fecha">Fecha:</label>
+                            <input type="text" name="fecha" value="{{cabecera.fecha}}" class="form-control form-control-sm" disabled="disabled" id="id_fecha">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="id_vencimiento">Vencimiento:</label>
+                            <input type="text" name="vencimiento" value="{{cabecera.vencimiento}}" class="form-control form-control-sm" disabled="disabled" id="id_vencimiento">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="id_condicion">Condicion:</label>
+                            <input type="text" name="condicion" value="{{ cabecera.condicion }}" class="form-control form-control-sm" disabled="disabled" id="id_condicion">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="id_moneda">Moneda:</label>
+                            <input type="text" name="moneda" value="{{cabecera.moneda}}" class="form-control form-control-sm" disabled="disabled" id="id_moneda">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="id_estado">Estado:</label>
+                            <input type="text" name="estado" value="{{cabecera.estado}}" class="form-control form-control-sm" disabled="disabled" id="id_estado">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="id_tipo_deudor">Tipo:</label>
+                            <input type="text" name="tipo_deudor" value="{{cabecera.tipo_deudor}}" class="form-control form-control-sm" disabled="disabled" id="id_tipo_deudor">
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive p-0">
+                    <table class="table mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-start text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Secuencia</th>
+                                <th class="text-start text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Cod.</th>
+                                <th class="text-start text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Concepto</th>
+                                <th class="text-end text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cantidad</th>
+                                <th class="text-end text-uppercase text-secondary text-xxs text-end font-weight-bolder opacity-7">Precio Unitario</th>
+                                <th class="text-end text-uppercase text-secondary text-xxs text-end font-weight-bolder opacity-7">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>                                          
+                        {% for linea in detalle %}
+                            <tr>
+                                <td><p class="text-xs font-weight-bold mb-0">{{ linea.secuencia }}</p></td>
+                                <td><p class="text-xs font-weight-bold mb-0">{{ linea.concepto_codigo }}</p></td>
+                                <td><p class="text-xs font-weight-bold mb-0">{{ linea.concepto_descripcion }}</p></td>
+                                <td><p class="text-end text-xs font-weight-bold mb-0">{{ linea.cantidad }}</p></td>
+                                <td><p class="text-end text-xs font-weight-bold mb-0">{{ linea.precio_unitario }}</p></td>
+                                <td><p class="text-end text-xs font-weight-bold mb-0">{{ linea.subtotal }}</p></td>
+                            </tr>
+                        {% endfor %}                 
+                            <tr>
+                                <td><p class="text-xs font-weight-bold mb-0">&nbsp;</p></td>
+                                <td><p class="text-xs font-weight-bold mb-0">&nbsp;</p></td>
+                                <td><p class="text-xs font-weight-bold mb-0">&nbsp;</p></td>
+                                <td><p class="text-end text-sm font-weight-bold mb-0">{{ cabecera.cantidad_afiliados }}</p></td>
+                                <td><p class="text-end text-xs font-weight-bold mb-0">&nbsp;</p></td>
+                                <td><p class="text-end text-sm font-weight-bold mb-0">{{ cabecera.total_liquidado }}</p></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="text-center">
                     <a class="btn btn-sm bg-gradient-default btn-lg mt-4 mb-0" href="{% url 'LiquidacionList' %}">Cancelar</a>
-                    <button type="submit" class="btn btn-sm bg-gradient-info btn-lg mt-4 mb-0">Modificar</button>
                 </div>
             </div>
         </div>

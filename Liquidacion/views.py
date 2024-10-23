@@ -6,7 +6,7 @@ from Asociados.utils import IdEmpresaActiva
 # Create your views here.
 def liquidacion_list(request):    
     # Obtener la lista de liquidaciones
-    liqs = LiquidacionCabecera.objects.filter(empresa__id = IdEmpresaActiva()).order_by("periodo")
+    liqs = LiquidacionCabecera.objects.filter(empresa__id = IdEmpresaActiva()).order_by("-fecha")[:12]
     
     # Configurar el paginador
     np = 20 # Definir el nro de liquidaciones por página
