@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
     'Dashboards',
     'Nomina',
     'Liquidacion',
@@ -137,5 +138,10 @@ STATICFILES_DIRS = [
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+#LOGIN_REDIRECT_URL = "home"  # Nico 14/11/2024
+#LOGOUT_REDIRECT_URL = "home"  # Nico 14/11/2024
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend" # Nico 15/11/2024 para ver por consola los emails que genera el sistema

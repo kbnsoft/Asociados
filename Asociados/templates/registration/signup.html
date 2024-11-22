@@ -1,0 +1,58 @@
+<!-- templates/registration/signup.html -->
+{% extends "base_registration.html" %}
+
+{% block title %}Registrarse{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
+      <div class="card card-plain">
+        <div class="card-header pb-0 text-start">
+          <h4 class="font-weight-bolder">Registrarse</h4>
+          <p class="mb-0">Bienvenido al registro para solicitar acceso al portal de Asociados.</p>
+        </div>
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  {{ form.username.label_tag }}
+                  {{ form.username }}
+                  {{ form.username.errors }}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  {{ form.password1.label_tag }}
+                  {{ form.password1 }}
+                  {{ form.password1.errors }}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  {{ form.password2.label_tag }}
+                  {{ form.password2 }}
+                  {{ form.password2.errors }}
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-sm bg-gradient-primary btn-lg mt-4 mb-0">Registrarse</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
+      <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-ill.jpg');
+  background-size: cover;">
+        <span class="mask bg-gradient-primary opacity-6"></span>
+        <h4 class="mt-5 text-white font-weight-bolder position-relative">"Trabajando juntos, transformamos desafíos en oportunidades para mejorar la calidad de vida de nuestros afiliados."</h4>
+        <p class="text-white position-relative">Cada desafío que enfrentamos es una oportunidad para innovar y mejorar. Al trabajar en equipo, podemos superar obstáculos y crear soluciones que realmente marquen la diferencia en la vida de las personas que confían en nosotros.</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

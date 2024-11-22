@@ -1,0 +1,59 @@
+<!-- templates/registration/login.html -->
+{% extends "base_registration.html" %}
+
+{% block title %}Iniciar sesi&oacute;n{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
+      <div class="card card-plain">
+        <div class="card-header pb-0 text-start">
+          <h4 class="font-weight-bolder">Iniciar sesi&oacute;n</h4>
+          <p class="mb-0">Bienvenido al portal de Asociados, ingrese su usuario y contrase&ntilde;a para iniciar sesi&oacute;n.</p>
+        </div>
+        <div class="card-body">
+            <form method="post">
+              {% csrf_token %}
+              {{ form.non_field_errors }}
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
+                    {{ form.username.errors }}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    {{ form.password.label_tag }}
+                    {{ form.password }}
+                    {{ form.password.errors }}
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-sm bg-gradient-primary btn-lg mt-4 mb-0">Iniciar sesi&oacute;n</button>
+            </form>
+        </div>
+        <div class="card-footer pt-0 px-lg-2 px-1">
+          <p class="mb-4 text-sm mx-auto">
+            No tinenes una cuenta?
+            <a href="{% url 'signup' %}" class="text-primary text-gradient font-weight-bold">Registrarse</a>
+            <br />
+            Olvidaste tu contrase&ntilde;a?
+            <a href="{% url 'password_reset' %}">Restablecer contrase&ntilde;a</a></p>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
+      <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-ill.jpg');
+  background-size: cover;">
+        <span class="mask bg-gradient-primary opacity-6"></span>
+        <h4 class="mt-5 text-white font-weight-bolder position-relative">"Trabajando juntos, transformamos desafíos en oportunidades para mejorar la calidad de vida de nuestros afiliados."</h4>
+        <p class="text-white position-relative">Cada desafío que enfrentamos es una oportunidad para innovar y mejorar. Al trabajar en equipo, podemos superar obstáculos y crear soluciones que realmente marquen la diferencia en la vida de las personas que confían en nosotros.</p>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
