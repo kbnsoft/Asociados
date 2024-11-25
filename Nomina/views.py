@@ -26,7 +26,7 @@ def afiliado_list(request):
     rd3 = page_obj.number - 3
     ru3 = page_obj.number + 3
 
-    return render(request, "afiliado_l.html", {"page_obj": page_obj, 
+    return render(request, "nomina/afiliado_l.html", {"page_obj": page_obj, 
                                            "query":q, 
                                            "total_nomina": afiliados.count, 
                                            "ru2":ru2,
@@ -55,7 +55,7 @@ def afiliado_create(request):
         elif request.method == "GET":      
             form = AfiliadoForm()
         
-        return render(request, 'afiliado_c.html', {'form': form})
+        return render(request, 'nomina/afiliado_c.html', {'form': form})
 
 def afiliado_update(request, afiliado_id):
     afi = get_object_or_404(Afiliado, id=afiliado_id)
@@ -74,13 +74,13 @@ def afiliado_update(request, afiliado_id):
             for field in form.fields.values():
                 field.widget.attrs['disabled'] = 'disabled'
         
-    return render(request, 'afiliado_u.html', {'form': form, 'PeriodoCarga':PeriodoCarga()})
+    return render(request, 'nomina/afiliado_u.html', {'form': form, 'PeriodoCarga':PeriodoCarga()})
 
 
 def afiliado_read(request, afiliado_id):
     afi = get_object_or_404(Afiliado, id=afiliado_id)
     form = AfiliadoForm(instance=afi)
-    return render(request, 'afiliado_r.html', {'form': form})
+    return render(request, 'nomina/afiliado_r.html', {'form': form})
 
 def afiliado_baja(request, afiliado_id):
     if PeriodoCarga() == False:
@@ -90,18 +90,3 @@ def afiliado_baja(request, afiliado_id):
         afi.estado = "Baja" 
         afi.save()
         return redirect("AfiliadoList")
-
-
-
-
-
-# VER !!!
-def home(request):
-    return render(request, "home.html")
-
-
-def facturacion(request):
-    return render(request, "facturacion.html")
-
-def contacto(request):
-    return render(request, "contacto.html")

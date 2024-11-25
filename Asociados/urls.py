@@ -19,10 +19,11 @@ from django.urls import path, include
 from django.views.generic.base import TemplateView  # Nico 14/11/2024
 
 urlpatterns = [
+    path('', include('public.urls')),  
     path('admin/', admin.site.urls),
     path("accounts/", include("accounts.urls")),  # Nico 15/11/2024 app personalizada para agragar sign up que no viene en las librerias estándares
     path("accounts/", include("django.contrib.auth.urls")), # Nico 14/11/2024
     path('Nomina/', include('Nomina.urls')),
     path('Liquidacion/', include('Liquidacion.urls')),
-    path('', include('Dashboards.urls')),
+    path('Dashboards/', include('Dashboards.urls')),
 ]

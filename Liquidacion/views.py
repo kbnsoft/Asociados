@@ -19,7 +19,7 @@ def liquidacion_list(request):
     rd3 = page_obj.number - 3
     ru3 = page_obj.number + 3
 
-    return render(request, "liquidacion_l.html", {"page_obj": page_obj,  
+    return render(request, "liquidacion/liquidacion_l.html", {"page_obj": page_obj,  
                                            "ru2":ru2,
                                            "rd2":rd2,
                                            "rd3":rd3,
@@ -28,4 +28,4 @@ def liquidacion_list(request):
 def liquidacion_read(request, liquidacion_id):
     lC = get_object_or_404(LiquidacionCabecera, id=liquidacion_id)
     lD = LiquidacionDetalle.objects.filter(liquidacion_id = liquidacion_id).order_by("secuencia")
-    return render(request, 'liquidacion_r.html', {'cabecera': lC, 'detalle': lD})
+    return render(request, 'liquidacion/liquidacion_r.html', {'cabecera': lC, 'detalle': lD})

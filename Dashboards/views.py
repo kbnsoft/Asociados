@@ -5,7 +5,7 @@ from Liquidacion.models import LiquidacionCabecera
 from datetime import date
 from Asociados.utils import IdEmpresaActiva, PeriodoCarga
 
-def Dashboards(request):
+def dashboards(request):
     emp = get_object_or_404(Empresa, id = IdEmpresaActiva())
     hoy = date.today()
     emp_stats = emp.afiliado_set.annotate(
