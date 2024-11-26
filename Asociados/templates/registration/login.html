@@ -7,6 +7,24 @@
   <div class="row">
     <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
       <div class="card card-plain">
+        {% if user.is_authenticated %}
+        <div class="card-header pb-0 text-start">
+          <h4 class="font-weight-bolder">Sesi&oacute;n iniciada</h4>
+          <p class="mb-0">Hola {{ user.username }} !</p>
+        </div>
+        <div class="card-body">
+          <span> </span>
+        </div>
+        <div class="card-footer pt-0 px-lg-2 px-1">
+          <p class="mb-4 text-sm mx-auto">
+            Cambiaron tus datos?
+            <a href="{% url 'login' %}" class="text-primary text-gradient font-weight-bold">Editar perfil</a>
+            <br />
+            Mejorar la seguridad?
+            <a href="{% url 'password_change' %}">Cambiar contrase&ntilde;a</a></p>
+          </p>
+        </div>
+        {% else %}
         <div class="card-header pb-0 text-start">
           <h4 class="font-weight-bolder">Iniciar sesi&oacute;n</h4>
           <p class="mb-0">Bienvenido al portal de Asociados, ingrese su usuario y contrase&ntilde;a para iniciar sesi&oacute;n.</p>
@@ -45,6 +63,7 @@
             <a href="{% url 'password_reset' %}">Restablecer contrase&ntilde;a</a></p>
           </p>
         </div>
+        {% endif %}
       </div>
     </div>
     <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
